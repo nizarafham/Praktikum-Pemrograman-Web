@@ -1,0 +1,43 @@
+.parent {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-auto-rows: 33%;
+    grid-auto-columns: 50%;
+    /* grid-template-areas: 
+    "header header"
+    "aside content"
+    "footer footer";
+    grid-template-columns: "1fr 1fr";
+    grid-template-rows: "1fr 1fr 1fr"; */
+}
+
+.parent header {
+    grid-area: 1/1/2/3;
+    background-color: rgb(14, 71, 52);
+}
+
+.parent aside {
+    grid-area: 2/1/3/2;
+    background-color: rgb(21, 186, 131);
+}
+
+.content {
+    grid-area: 2/2/3/3;
+    background-color: rgb(196, 233, 213);
+}
+.parent footer{
+    grid-area: 3/1/4/3;
+    background-color: rgb(112, 144, 133);
+}
+h1 {
+    font-family: "Helvetica";
+    font-size: 100px;
+    padding: 35px;
+    text-align: center;
+    color: wheat;
+}
+
+.d-grid {
+    display: grid;
+}
