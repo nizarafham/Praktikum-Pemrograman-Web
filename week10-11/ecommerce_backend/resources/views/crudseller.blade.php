@@ -143,7 +143,7 @@
         console.log('Sending data:', data);
 
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/login',
+            url: `${API_URL}login`,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -179,7 +179,7 @@
             }
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/logout',
+                url: `${API_URL}logout`,
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -241,7 +241,7 @@
 
         function getCategories() {
             $.ajax({
-                url: `http://127.0.0.1:8000/api/seller/categories`,
+                url: `${API_URL}seller/categories`,
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -277,8 +277,8 @@
             }
 
             const url = productId ?
-                `http://127.0.0.1:8000/api/seller/products/${productId}` :
-                `http://127.0.0.1:8000/api/seller/products`;
+                `${API_URL}seller/products/${productId}` :
+                `${API_URL}api/seller/products`;
 
             $.ajax({
                 url: url,
@@ -302,7 +302,7 @@
 
         function getProducts() {
             $.ajax({
-                url: `http://127.0.0.1:8000/api/seller/products`,
+                url: `${API_URL}seller/products`,
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -349,7 +349,7 @@
         function deleteProduct(id) {
             if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
                 $.ajax({
-                    url: `http://127.0.0.1:8000/api/seller/products/${id}`,
+                    url: `${API_URL}seller/products/${id}`,
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`

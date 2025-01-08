@@ -1,42 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Product Management</title>
+    <title>Login Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <form id="addProductForm">
-        <input type="text" id="name" placeholder="Product Name" required>
-        <input type="number" id="price" placeholder="Price" required>
-        <input type="number" id="stock" placeholder="Stock" required>
-        <input type="text" id="category_id" placeholder="Category ID" required>
-        <button type="submit">Add Product</button>
-    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Login Test</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
 
+                        <div class="mt-3">
+                            <strong>Response:</strong>
+                            <pre id="response" style="background: #f8f9fa; padding: 10px; margin-top: 10px;"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+        $('#loginForm').submit(function(e) {
             e.preventDefault();
 
-            const token = 'your_api_token_here'; 
-
             const data = {
-                name: document.getElementById('name').value,
-                price: document.getElementById('price').value,
-                stock: document.getElementById('stock').value,
-                category_id: document.getElementById('category_id').value
+                email: $('#email').val(),
+                password: $('#password').val()
             };
 
-            const response = await fetch('http://127.0.0.1:8000/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(data)
-            });
+            console.log('Sending data:', data);
 
-            const result = await response.json();
-            console.log(result);
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/login',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response) {
+                    $('#response').html(JSON.stringify(response, null, 2));
+
+                    if(response.data && response.data.token) {
+                        localStorage.setItem('token', response.data.token);
+                        console.log('Token saved:', response.data.token);
+                    }
+                },
+                error: function(xhr) {
+                    $('#response').html(JSON.stringify(xhr.responseJSON, null, 2));
+                }
+            });
         });
     </script>
 </body>
