@@ -170,9 +170,6 @@
         });
     });
 
-
-
-        // Logout Function
         function logout() {
             const token = localStorage.getItem('token');
 
@@ -185,12 +182,12 @@
                 url: 'http://127.0.0.1:8000/api/logout',
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${token}`  // Pastikan token disertakan
+                    'Authorization': `Bearer ${token}`
                 },
                 success: function(response) {
                     console.log('Logout berhasil:', response);
-                    localStorage.removeItem('token');  // Hapus token dari localStorage
-                    showLoginForm();  // Tampilkan form login lagi
+                    localStorage.removeItem('token');
+                    showLoginForm();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error saat logout:', error);
@@ -214,26 +211,26 @@
         description: $('#categoryDescription').val()
     };
 
-    console.log('Mengirim data kategori:', data); // Log data yang akan dikirim
+    console.log('Mengirim data kategori:', data);
 
     $.ajax({
         url: `${API_URL}seller/category`,
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'  // Menambahkan content-type jika API mengharapkan JSON
+            'Content-Type': 'application/json'
         },
-        data: JSON.stringify(data),  // Mengonversi data ke format JSON
+        data: JSON.stringify(data),
         success: function(response) {
-            console.log('Kategori berhasil ditambahkan:', response); // Log respons sukses
+            console.log('Kategori berhasil ditambahkan:', response);
             alert('Kategori berhasil ditambahkan');
             $('#categoryForm')[0].reset();
             getCategories();
         },
         error: function(xhr, status, error) {
-            console.error('Gagal menambahkan kategori:', xhr.responseJSON || error); // Log error yang lebih detail
+            console.error('Gagal menambahkan kategori:', xhr.responseJSON || error);
             if (xhr.responseJSON && xhr.responseJSON.message) {
-                alert('Error: ' + xhr.responseJSON.message); // Menampilkan pesan error dari server jika ada
+                alert('Error: ' + xhr.responseJSON.message);
             } else {
                 alert('Gagal menambahkan kategori. Coba lagi nanti.');
             }

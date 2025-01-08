@@ -17,7 +17,7 @@
         document.getElementById('addProductForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const token = 'your_api_token_here'; // Token yang diterima setelah login
+            const token = 'your_api_token_here'; 
 
             const data = {
                 name: document.getElementById('name').value,
